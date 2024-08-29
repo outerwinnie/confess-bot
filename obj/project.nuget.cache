@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uk9EJMUdTHEUlR9+VnGhSeiRKhGDYYexGxYoNd4EkrvLfymM76jA1JNKMOyjf/0RtcdpP7et/918NGCXMT7Y1A==",
+  "dgSpecHash": "ZbdvSCyFauESTUZo2I4NFusfTsBWPpUuW/ztMb2gM5crauK+5UB8PE3rBXa0VxAQJorCh7C29guXH8XFbDxx9Q==",
   "success": true,
-  "projectFilePath": "d:\\Backup\\Projectos\\Bots\\ConfessBot\\ConfessBot.csproj",
+  "projectFilePath": "C:\\Users\\Winnie\\Desktop\\confess-bot\\ConfessBot.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Winnie\\.nuget\\packages\\discord.net\\3.15.3\\discord.net.3.15.3.nupkg.sha512",
     "C:\\Users\\Winnie\\.nuget\\packages\\discord.net.commands\\3.15.3\\discord.net.commands.3.15.3.nupkg.sha512",

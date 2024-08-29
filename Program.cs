@@ -52,9 +52,15 @@ namespace DiscordBot
                 .WithDescription("Confess something anonymously")
                 .AddOption("text", ApplicationCommandOptionType.String, "The text to confess", isRequired: true);
 
-            await _client.Rest.CreateGlobalCommand(confesarCommand.Build());
+            // Replace 'your_guild_id_here' with your actual guild ID
+            var guildId = ulong.Parse(Environment.GetEnvironmentVariable("GUILD_ID")); // Example: 123456789012345678
+            var guild = _client.GetGuild(guildId);
 
-            Console.WriteLine("Slash command /confesar registered");
+            await guild.DeleteApplicationCommandsAsync(); // Clear any existing commands in the guild
+            await _client.Rest.DeleteAllGlobalCommandsAsync();
+            await guild.CreateApplicationCommandAsync(confesarCommand.Build());
+
+            Console.WriteLine("Slash command /confesar registered for guild");
         }
 
         private async Task HandleInteraction(SocketInteraction interaction)
@@ -64,6 +70,11 @@ namespace DiscordBot
                 if (command.CommandName == "confesar")
                 {
                     var text = command.Data.Options.First().Value.ToString();
+                    var user = command.User; // Get the user who triggered the command
+
+                    // Log the user and the message text
+                    Console.WriteLine($"[{DateTime.Now}] {user.Username} ({user.Id}) sent: {text}");
+
                     await command.RespondAsync(text, ephemeral: true); // Responds privately
                     await command.Channel.SendMessageAsync(text); // Sends the message in the channel
                 }

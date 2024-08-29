@@ -660,11 +660,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Backup\\Projectos\\Bots\\ConfessBot\\ConfessBot.csproj",
+      "projectUniqueName": "C:\\Users\\Winnie\\Desktop\\confess-bot\\ConfessBot.csproj",
       "projectName": "ConfessBot",
-      "projectPath": "D:\\Backup\\Projectos\\Bots\\ConfessBot\\ConfessBot.csproj",
+      "projectPath": "C:\\Users\\Winnie\\Desktop\\confess-bot\\ConfessBot.csproj",
       "packagesPath": "C:\\Users\\Winnie\\.nuget\\packages\\",
-      "outputPath": "D:\\Backup\\Projectos\\Bots\\ConfessBot\\obj\\",
+      "outputPath": "C:\\Users\\Winnie\\Desktop\\confess-bot\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Winnie\\AppData\\Roaming\\NuGet\\NuGet.Config"
