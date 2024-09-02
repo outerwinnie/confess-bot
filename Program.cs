@@ -2,6 +2,8 @@
 using Discord.WebSocket;
 using Discord.Interactions;
 using System;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DiscordBot
@@ -50,7 +52,8 @@ namespace DiscordBot
             var confesarCommand = new SlashCommandBuilder()
                 .WithName("confesar")
                 .WithDescription("Confess something anonymously")
-                .AddOption("text", ApplicationCommandOptionType.String, "The text to confess", isRequired: true);
+                .AddOption("text", ApplicationCommandOptionType.String, "The text to confess", isRequired: true)
+                .AddOption("file", ApplicationCommandOptionType.Attachment, "Optional file to attach", isRequired: false);
 
             // Replace 'your_guild_id_here' with your actual guild ID
             var guildId = ulong.Parse(Environment.GetEnvironmentVariable("GUILD_ID")); // Example: 123456789012345678
@@ -69,14 +72,28 @@ namespace DiscordBot
             {
                 if (command.CommandName == "confesar")
                 {
-                    var text = command.Data.Options.First().Value.ToString();
+                    var text = command.Data.Options.FirstOrDefault(x => x.Name == "text")?.Value?.ToString();
+                    var attachmentOption = command.Data.Options.FirstOrDefault(x => x.Name == "file")?.Value as Attachment;
+
                     var user = command.User; // Get the user who triggered the command
 
                     // Log the user and the message text
                     Console.WriteLine($"[{DateTime.Now}] {user.Username} ({user.Id}) sent: {text}");
 
-                    await command.RespondAsync(text, ephemeral: true); // Responds privately
-                    await command.Channel.SendMessageAsync(text); // Sends the message in the channel
+                    await command.RespondAsync("Your confession has been sent!", ephemeral: true); // Responds privately
+
+                    if (attachmentOption != null)
+                    {
+                        using (var httpClient = new HttpClient())
+                        using (var stream = await httpClient.GetStreamAsync(attachmentOption.Url))
+                        {
+                            await command.Channel.SendFileAsync(stream, attachmentOption.Filename, text); // Sends the message with the file in the channel
+                        }
+                    }
+                    else
+                    {
+                        await command.Channel.SendMessageAsync(text); // Sends the message in the channel
+                    }
                 }
             }
         }
